@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Librerías Jenny</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" type= "text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .btn-animate {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .btn-animate:hover {
+            transform: scale(1.1);
+            /* Aumenta el tamaño del botón */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            /* Agrega una sombra */
+        }
+        
+        .spacing{
+            gap:10px;
+            padding-left: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <header id="header">
+        <!-- Coloca la barra de navegación aquí -->
+    </header>
+    <main>
+        <div id="app" class="container">
+            <h1>Stock de Libros</h1>
+            <br>
+            <!-- <a class="btn btn-primary" href="producto-create.html">Nuevo</a> -->
+            <!-- <a class="btn btn-primary btn-animate" href="producto-create.html">Nuevo</a> -->
+            <a class="btn btn-primary animate__animated animate__heartBeat btn-animate" href="producto-create.html">Nuevo</a>
+            <br><br>
+            <div v-if="error">
+                <p>Lo sentimos, ha ocurrido un error.</p>
+            </div>
+            <div v-else>
+                <section v-if="cargando">
+                    <div class="spinner-border"></div>
+                    <p>Cargando...</p>
+                </section>
+                <section v-else>
+                    <div class="table-responsive" style="padding-bottom: 50px;">
+                        <table class="table table-bordered table-dark table-hover align-middle">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope='col'>Autor</th>
+                                    <th scope='col'>Editorial</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Stock</th>
+                                    <th scope="col">Imagen</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Iterar sobre cada producto -->
+                                <tr class="" v-for="producto in productos">
+                                    <td scope="row">{{producto.id}}</td>
+                                    <td>{{producto.nombre}}</td>
+                                    <td>{{producto.autor}}</td>
+                                    <td>{{producto.editorial}}</td>
+                                    <td>{{producto.precio}}</td>
+                                    <td>{{producto.stock}}</td>
+                                    <td>
+                                        <img width="150" :src="producto.imagen" :alt="producto.nombre">
+                                    </td>
+                                    <td>
+                                        <div class="spacing btn-group-vertical">
+                                        <!-- Botón para editar el producto -->
+                                        <a class="btn btn-primary" :href="'producto-update.html?id='+ producto.id">Editar</a>
+                                        <!-- Botón para eliminar el producto -->
+                                        <button type="button" class="btn btn-danger" v-on:click="eliminar(producto.id)">Eliminar</button>
+                                        <!-- Botón para ver el detalle del producto -->
+                                        <a class="btn btn-outline-secondary" :href="'detalle.html?id='+ producto.id">Detalles</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-dark text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+          <!-- Section: Social media -->
+          <section class="mb-4">
+            <!-- Facebook -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+      
+            <!-- Twitter -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+              ><i class="fab fa-twitter"></i
+            ></a>
+      
+            <!-- Google -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+              ><i class="fab fa-google"></i
+            ></a>
+      
+            <!-- Instagram -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+              ><i class="fab fa-instagram"></i
+            ></a>
+      
+            <!-- Linkedin -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+      
+            <!-- Github -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+              ><i class="fab fa-github"></i
+            ></a>
+          </section>
+          <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+      
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+          © 2023 Copyright:
+          <a class="text-white" href="#">Librerías Jenny</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
+    <!-- Enlace de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+        crossorigin="anonymous"></script>
+    <script src="./js/main.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script><!--Enlace de VUE-->
+    <script src="./js/productos.js"></script>
+</body>
+
+</html>
